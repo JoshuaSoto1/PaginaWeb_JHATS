@@ -7,7 +7,7 @@ const marcas = {
   'Barbas': {
     modelos: [
       { id: 'B1', nombre: 'EL BARBAS HATS X CT - CHROME I (LAST EDITION) ', precio: '₡25.000', foto: 'assets/images/gorras/B1D.webp', fotos: ['assets/images/gorras/B1D.webp','assets/images/gorras/B3IZ.webp','assets/images/gorras/B2L.webp'] },
-      { id: 'B2', nombre: 'BARBAS PREMIUM 2.0 — DARK NEBULA', precio: '₡25.000', foto: 'assets/images/gorras/B2FPP.PNG', fotos: ['assets/images/gorras/B2FPP.PNG','assets/images/gorras/B2LI.webp','assets/images/gorras/B2LD.webp'] },
+      { id: 'B2', nombre: 'BARBAS PREMIUM 2.0 — DARK NEBULA', precio: '₡25.000', foto: 'assets/images/gorras/B2FPPPP.webp', fotos: ['assets/images/gorras/B2FPPPP.webp','assets/images/gorras/B2LI.webp','assets/images/gorras/B2LD.webp'] },
       { id: 'B3', nombre: 'Barbas B3', precio: '₡25.000', foto: 'assets/images/gorras/barbas/B3/portada.jpg', fotos: ['assets/images/gorras/barbas/B3/foto1.jpg','assets/images/gorras/barbas/B3/foto2.jpg','assets/images/gorras/barbas/B3/foto3.jpg'] },
       { id: 'B4', nombre: 'Barbas B4', precio: '₡25.000', foto: 'assets/images/gorras/barbas/B4/portada.jpg', fotos: ['assets/images/gorras/barbas/B4/foto1.jpg','assets/images/gorras/barbas/B4/foto2.jpg','assets/images/gorras/barbas/B4/foto3.jpg'] },
       { id: 'B5', nombre: 'Barbas B5', precio: '₡25.000', foto: 'assets/images/gorras/barbas/B5/portada.jpg', fotos: ['assets/images/gorras/barbas/B5/foto1.jpg','assets/images/gorras/barbas/B5/foto2.jpg','assets/images/gorras/barbas/B5/foto3.jpg'] },
