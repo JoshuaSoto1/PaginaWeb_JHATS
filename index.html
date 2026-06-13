@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JHATS | Gorras</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <!-- ======= HERO ======= -->
+    <section class="hero">
+
+        <!-- Logo gigante de fondo -->
+        <div class="hero__bg-logo"></div>
+
+        <div class="hero__inner">
+            <h1 class="hero__title">BIENVENIDO A LA PÁGINA OFICIAL DE JHATS</h1>
+
+            <p class="hero__subtitle">
+                No son simples gorras, son personalidad.
+            </p>
+
+            <a href="#catalogo" class="btn-primary">
+                Ver catálogo
+            </a>
+        </div>
+
+    </section>
+
+    <!-- ======= CATEGORÍAS ======= -->
+    <section class="catalogo" id="catalogo">
+        <div class="catalogo__header">
+            <h2 class="catalogo__title">Marcas Disponibles</h2>
+            <p class="catalogo__sub">Elegí tu estilo y explora algo nuevo</p>
+        </div>
+
+        <div class="categorias__grid">
+
+            <div class="categoria__card" onclick="toggleCategoria('Barbas')">
+                <div class="categoria__img-wrap">
+                    <img src="assets/images/gorras/Barbas.png" class="logo-barbas" />
+                </div>
+                <h3>Barbas Hats</h3>
+                <span class="categoria__arrow">↓</span>
+            </div>
+
+            <div class="categoria__card" onclick="toggleCategoria('Dandy')">
+                <div class="categoria__img-wrap">
+                    <img src="assets/images/gorras/Dandy.png" class="logo-dandy" />
+                </div>
+                <h3>Dandy Hats</h3>
+                <span class="categoria__arrow">↓</span>
+            </div>
+
+            <div class="categoria__card" onclick="toggleCategoria('31 Hats')">
+                <div class="categoria__img-wrap">
+                    <img src="assets/images/gorras/Dandyy.png" class="logo-31hats" />
+                </div>
+                <h3>31 Hats</h3>
+                <span class="categoria__arrow">↓</span>
+            </div>
+
+            <div class="categoria__card" onclick="toggleCategoria('Otras Marcas')">
+                <div class="categoria__img-wrap">
+                    <img src="assets/images/gorras/OTRAS.png" class="logo-otras" />
+                </div>
+                <h3>Otras Marcas</h3>
+                <span class="categoria__arrow">↓</span>
+            </div>
+
+        </div>
+
+        <!-- Paneles vacíos — el JS los llena al hacer clic -->
+        <div class="productos__panel" id="panel-Barbas"></div>
+        <div class="productos__panel" id="panel-Dandy"></div>
+        <div class="productos__panel" id="panel-31 Hats"></div>
+        <div class="productos__panel" id="panel-Otras Marcas"></div>
+
+    </section>
+
+        <!-- PRODUCTOS POR CATEGORÍA -->
+        <div class="productos__panel" id="panel-Barbas">
+            <h3 class="panel__title">Barbas Hats — Disponibles</h3>
+            <div class="productos__grid">
+                <div class="producto__card">
+                    <img src="assets/images/gorras/B1D.webp" alt="EL BARBAS HATS X CT - CHROME I (LAST EDITION)" />
+                    <p class="producto__nombre"> B1</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+                <div class="producto__card">
+                    <img src="assets/images/gorras/B2L.webp" alt="EL BARBAS HATS X CT - CHROME I (LAST EDITION)" />
+                    <p class="producto__nombre">B2</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+                <div class="producto__card">
+                    <img src="assets/images/gorras/B3IZ.webp" alt="EL BARBAS HATS X CT - CHROME I (LAST EDITION)" />
+                    <p class="producto__nombre">B3</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="productos__panel" id="panel-Dandy">
+            <h3 class="panel__title">Dandy Hats — Disponibles</h3>
+            <div class="productos__grid">
+                <div class="producto__card">
+                    <img src="assets/images/gorras/trucker-1.jpg" alt="Trucker 1" />
+                    <p class="producto__nombre">D1</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+                <div class="producto__card">
+                    <img src="assets/images/gorras/trucker-2.jpg" alt="Trucker 2" />
+                    <p class="producto__nombre">D2</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="productos__panel" id="panel-31 Hats">
+            <h3 class="panel__title">31 Hats — Disponibles</h3>
+            <div class="productos__grid">
+                <div class="producto__card">
+                    <img src="assets/images/gorras/plana-1.jpg" alt="Plana 1" />
+                    <p class="producto__nombre">Plana Negra</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+                <div class="producto__card">
+                    <img src="assets/images/gorras/plana-2.jpg" alt="Plana 2" />
+                    <p class="producto__nombre">Plana Blanca</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="productos__panel" id="panel-Otras Marcas">
+            <h3 class="panel__title">Otras Marcas — Disponibles</h3>
+            <div class="productos__grid">
+                <div class="producto__card">
+                    <img src="assets/images/gorras/bordada-1.jpg" alt="Bordada 1" />
+                    <p class="producto__nombre">Bordada Clásica</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+                <div class="producto__card">
+                    <img src="assets/images/gorras/bordada-2.jpg" alt="Bordada 2" />
+                    <p class="producto__nombre">Bordada Azul</p>
+                    <p class="producto__precio">₡25000</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ======= CONTACTO ======= -->
+    <section class="contacto">
+        <h2>¿Te interesa alguna?</h2>
+        <p>Escribinos por WhatsApp y te atendemos de inmediato.</p>
+        <a href="https://wa.me/50664738037" target="_blank" class="btn-whatsapp">
+            Escribir por WhatsApp
+        </a>
+    </section>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+        <p>© 2026 JHATS. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
