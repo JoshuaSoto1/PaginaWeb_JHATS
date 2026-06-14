@@ -102,21 +102,7 @@ function initNavbar() {
 // HERO PARALLAX — logo follows mouse
 // ============================================================
 function initHeroParallax() {
-  const heroLogo = document.getElementById('heroBgLogo');
-  const hero = document.querySelector('.hero');
-  if (!heroLogo || !hero) return;
-
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-    heroLogo.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
-  });
-
-  hero.addEventListener('mouseleave', () => {
-    heroLogo.style.transform = 'translate(0, 0)';
-  });
+  
 }
 
 // ============================================================
