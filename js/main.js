@@ -270,3 +270,16 @@ function cerrarDetalle() {
   });
   document.querySelectorAll('.modelo__card').forEach(c => c.classList.remove('activa'));
 }
+function abrirModal() {
+  document.getElementById('modalOverlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal() {
+  document.getElementById('modalOverlay').classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') cerrarModal();
+});
