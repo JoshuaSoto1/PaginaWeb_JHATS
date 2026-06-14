@@ -151,8 +151,13 @@ function animateStaggered(container, selector) {
   items.forEach((item, i) => {
     item.style.opacity = '0';
     item.style.transform = 'translateY(30px)';
-    item.classList.add('card-stagger');
-    item.style.animationDelay = `${i * 0.08}s`;
+    item.style.transition = `opacity 1s ease ${i * 0.25}s, transform 1s ease ${i * 0.25}s`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      });
+    });
   });
 }
 
