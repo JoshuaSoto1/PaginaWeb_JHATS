@@ -46,6 +46,117 @@ const marcas = {
 };
 
 // ============================================================
+// SCROLL REVEAL — Intersection Observer
+// ============================================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Observe all [data-reveal] elements
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // Navbar scroll behavior
+  initNavbar();
+
+  // Hero parallax
+  initHeroParallax();
+
+  // 3D tilt on category cards
+  initTiltCards();
+});
+
+// ============================================================
+// NAVBAR — shrink on scroll
+// ============================================================
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 60) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
+
+// ============================================================
+// HERO PARALLAX — logo follows mouse
+// ============================================================
+function initHeroParallax() {
+  const heroLogo = document.getElementById('heroBgLogo');
+  const hero = document.querySelector('.hero');
+  if (!heroLogo || !hero) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    heroLogo.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+  });
+
+  hero.addEventListener('mouseleave', () => {
+    heroLogo.style.transform = 'translate(0, 0)';
+  });
+}
+
+// ============================================================
+// 3D TILT — subtle perspective effect on hover
+// ============================================================
+function initTiltCards() {
+  const cards = document.querySelectorAll('.tilt-card');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      const rotateX = (0.5 - y) * 10;  // max ±5 degrees
+      const rotateY = (x - 0.5) * 10;  // max ±5 degrees
+
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+}
+
+// ============================================================
+// STAGGERED ANIMATION — animate child cards one by one
+// ============================================================
+function animateStaggered(container, selector) {
+  const items = container.querySelectorAll(selector);
+  items.forEach((item, i) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(30px)';
+    item.classList.add('card-stagger');
+    item.style.animationDelay = `${i * 0.08}s`;
+  });
+}
+
+// ============================================================
 // NIVEL 1 — Clic en una marca → mostrar sus modelos
 // ============================================================
 function toggleCategoria(marcaId) {
@@ -68,6 +179,9 @@ function toggleCategoria(marcaId) {
     }
 
     panel.classList.add('visible');
+
+    // Stagger animate the model cards
+    animateStaggered(panel, '.modelo__card');
 
     const idx = Object.keys(marcas).indexOf(marcaId);
     if (cards[idx]) cards[idx].classList.add('activa');
@@ -131,6 +245,9 @@ function abrirDetalle(marcaId, modeloId) {
         `).join('')}
       </div>
       <a href="${waLink}" target="_blank" class="btn-whatsapp detalle__wa">
+        <svg class="btn-whatsapp__icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
         Pedir por WhatsApp
       </a>
     </div>
