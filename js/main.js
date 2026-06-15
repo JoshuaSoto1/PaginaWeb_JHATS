@@ -274,3 +274,36 @@ function cerrarModal() {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') cerrarModal();
 });
+// ============================================================
+// FIX iOS — Video autoplay y reanudar al volver
+// ============================================================
+function fixIOSVideo() {
+  const video = document.querySelector('.hero__video');
+  if (!video) return;
+
+  // Forzar play al cargar
+  video.play().catch(() => {});
+
+  // Reanudar si se congela al volver a la página
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      video.play().catch(() => {});
+    }
+  });
+
+  // Reanudar si la app vuelve al foco
+  window.addEventListener('pageshow', () => {
+    video.play().catch(() => {});
+  });
+
+  // Reanudar si se pausa solo
+  video.addEventListener('pause', () => {
+    setTimeout(() => {
+      video.play().catch(() => {});
+    }, 300);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fixIOSVideo();
+});

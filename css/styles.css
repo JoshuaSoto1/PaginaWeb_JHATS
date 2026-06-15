@@ -274,7 +274,7 @@ body {
 
 .hero__subtitle {
   font-size: 1.15rem;
-  color: var(--blanco-humo);
+  color: var(--blanco);
   opacity: 0;
   max-width: 420px;
   transform: translateY(20px);
@@ -431,7 +431,7 @@ body {
 
 .catalogo__sub {
   margin-top: 12px;
-  color: var(--gris);
+  color: var(--blanco);
   font-size: 1.05rem;
 }
 
