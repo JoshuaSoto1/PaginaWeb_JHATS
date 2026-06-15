@@ -412,9 +412,9 @@ body {
 
 .catalogo {
   padding: 100px 24px;
-  background-color: rgba();
   position: relative;
   z-index: 1;
+  margin-top: 0;
 }
 
 .catalogo__header {
@@ -679,13 +679,14 @@ body {
 
 /* ===== FOOTER ===== */
 .footer {
-  background-color: var(--negro);
-  border-top: 1px solid transparent;
-  border-image: linear-gradient(90deg, transparent, var(--azul-med), transparent) 1;
+  background: transparent;
+  border-top: 1px solid rgba(255,255,255,0.08);
   text-align: center;
   padding: 28px;
-  color: var(--gris);
+  color: var(--blanco);
   font-size: 0.85rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* ===== LOGO SCALE OVERRIDES ===== */
