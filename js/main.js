@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroParallax();
   initTiltCards();
   fixIOSVideo();
+   initMusica();
 });
 
 // ============================================================
@@ -297,4 +298,21 @@ function fixIOSVideo() {
       video.play().catch(() => {});
     }, 300);
   });
+}
+// ============================================================
+// MÚSICA DE FONDO
+// ============================================================
+function initMusica() {
+  const audio = new Audio('assets/audio/cancion.mp3');
+  audio.loop = true;
+  audio.volume = 0.15;
+
+  const iniciarMusica = () => {
+    audio.play().catch(() => {});
+    document.removeEventListener('touchstart', iniciarMusica);
+    document.removeEventListener('click', iniciarMusica);
+  };
+
+  document.addEventListener('touchstart', iniciarMusica);
+  document.addEventListener('click', iniciarMusica);
 }
