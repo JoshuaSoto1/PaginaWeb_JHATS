@@ -61,19 +61,14 @@ const revealObserver = new IntersectionObserver((entries) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Observe all [data-reveal] elements
   document.querySelectorAll('[data-reveal]').forEach(el => {
     revealObserver.observe(el);
   });
 
-  // Navbar scroll behavior
   initNavbar();
-
-  // Hero parallax
   initHeroParallax();
-
-  // 3D tilt on category cards
   initTiltCards();
+  fixIOSVideo();
 });
 
 // ============================================================
@@ -303,7 +298,3 @@ function fixIOSVideo() {
     }, 300);
   });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  fixIOSVideo();
-});
