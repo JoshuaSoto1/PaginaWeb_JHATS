@@ -305,7 +305,7 @@ function fixIOSVideo() {
 function initMusica() {
   const audio = new Audio('assets/audio/cancion.mp3');
   audio.loop = true;
-  audio.volume = 0.15;
+  audio.volume = 0.10;
 
   const iniciarMusica = () => {
     audio.play().catch(() => {});
