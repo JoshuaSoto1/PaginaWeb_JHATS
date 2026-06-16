@@ -1,7 +1,7 @@
 // ============================================================
 // DATOS — Aquí editás nombres y rutas de imágenes manualmente
 // ============================================================
-const WHATSAPP = '50664738037';
+const WHATSAPP = '50660415839';
 
 const marcas = {
   'Barbas': {
