@@ -33,14 +33,14 @@ const marcas = {
   },
   'Otras Marcas': {
     modelos: [
-      { id: 'O1', nombre: 'Otras O1', precio: '₡25.000', foto: 'assets/images/gorras/O1F.webp', fotos: ['assets/images/gorras/O1L.webp','assets/images/gorras/O1LI.webp','assets/images/gorras/O1AB.webp'] },
-      { id: 'O2', nombre: 'Otras O2', precio: '₡25.000', foto: 'assets/images/gorras/O2F.webp', fotos: ['assets/images/gorras/O2L.webp','assets/images/gorras/O2LI.webp','assets/images/gorras/O2A.webp'] },
-      { id: 'O3', nombre: 'Otras O3', precio: '₡25.000', foto: 'assets/images/gorras/O3F.webp', fotos: ['assets/images/gorras/O3F.webp','assets/images/gorras/O3L.webp','assets/images/gorras/O3LI.webp'] },
-      { id: 'O4', nombre: 'Otras O4', precio: '₡25.000', foto: 'assets/images/gorras/O4F.webp', fotos: ['assets/images/gorras/O4L.webp','assets/images/gorras/O4LI.webp','assets/images/gorras/O4A.webp'] },
-      { id: 'O5', nombre: 'Otras O5', precio: '₡25.000', foto: 'assets/images/gorras/O5F.webp', fotos: ['assets/images/gorras/O5F.webp','assets/images/gorras/O5L.webp','assets/images/gorras/O5A.webp'] },
-      { id: 'O6', nombre: 'Otras O6', precio: '₡25.000', foto: 'assets/images/gorras/O6F.webp', fotos: ['assets/images/gorras/O6F.webp','assets/images/gorras/O6L.webp','assets/images/gorras/O6LI.webp'] },
-      { id: 'O7', nombre: 'Otras O7', precio: '₡25.000', foto: 'assets/images/gorras/07F.webp', fotos: ['assets/images/gorras/07F.webp','assets/images/gorras/07L.webp','assets/images/gorras/07LD.webp'] },
-      { id: 'O8', nombre: 'Otras O8', precio: '₡25.000', foto: 'assets/images/gorras/08F.webp', fotos: ['assets/images/gorras/08FF.webp','assets/images/gorras/08LD.webp','assets/images/gorras/08LI.webp'] },
+      { id: 'O1', nombre: 'GORRA BAEZ X SHIFU', precio: '₡25.000', foto: 'assets/images/gorras/O1F.webp', fotos: ['assets/images/gorras/O1L.webp','assets/images/gorras/O1LI.webp','assets/images/gorras/O1AB.webp'] },
+      { id: 'O2', nombre: 'GORRA BIGG BOSS - ESTRELLAS ROCKSTAR', precio: '₡25.000', foto: 'assets/images/gorras/O2F.webp', fotos: ['assets/images/gorras/O2L.webp','assets/images/gorras/O2LI.webp','assets/images/gorras/O2A.webp'] },
+      { id: 'O3', nombre: 'GORRA RUDE AWAKENINGS - CROWN OF THORNS PINK', precio: '₡25.000', foto: 'assets/images/gorras/O3F.webp', fotos: ['assets/images/gorras/O3F.webp','assets/images/gorras/O3L.webp','assets/images/gorras/O3LI.webp'] },
+      { id: 'O4', nombre: 'GORRA RUDE AWAKENINGS - NY BRIDE', precio: '₡25.000', foto: 'assets/images/gorras/O4F.webp', fotos: ['assets/images/gorras/O4L.webp','assets/images/gorras/O4LI.webp','assets/images/gorras/O4A.webp'] },
+      { id: 'O5', nombre: 'GORRA RUDE AWAKENINGS - LALALA ROSA', precio: '₡25.000', foto: 'assets/images/gorras/O5F.webp', fotos: ['assets/images/gorras/O5F.webp','assets/images/gorras/O5L.webp','assets/images/gorras/O5A.webp'] },
+      { id: 'O6', nombre: 'GORRA RICO HATS - "LA" VANCLEEF', precio: '₡25.000', foto: 'assets/images/gorras/O6F.webp', fotos: ['assets/images/gorras/O6F.webp','assets/images/gorras/O6L.webp','assets/images/gorras/O6LI.webp'] },
+      { id: 'O7', nombre: 'RICO HATS - TOTAL BLACK "LA" MAGO', precio: '₡25.000', foto: 'assets/images/gorras/07F.webp', fotos: ['assets/images/gorras/07F.webp','assets/images/gorras/07L.webp','assets/images/gorras/07LD.webp'] },
+      { id: 'O8', nombre: 'GORRA BIGG BOSS SAN JUDAS - CRYSTAL TOTAL BlACK', precio: '₡25.000', foto: 'assets/images/gorras/08F.webp', fotos: ['assets/images/gorras/08FF.webp','assets/images/gorras/08LD.webp','assets/images/gorras/08LI.webp'] },
     ]
   }
 };
