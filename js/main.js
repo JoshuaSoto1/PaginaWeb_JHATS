@@ -6,11 +6,11 @@ const WHATSAPP = '50664738037';
 const marcas = {
   'Barbas': {
     modelos: [
-      { id: 'B1', nombre: 'EL BARBAS HATS X CT - CHROME I (LAST EDITION) ', precio: '₡25.000', foto: 'assets/images/gorras/B1D.webp', fotos: ['assets/images/gorras/B1D.webp','assets/images/gorras/B3IZ.webp','assets/images/gorras/B2L.webp'] },
+      { id: 'B1', nombre: 'EL BARBAS HATS X CT - CHROME I (LAST EDITION) ', precio: '₡25.000', agotado: true, foto: 'assets/images/gorras/B1D.webp', fotos: ['assets/images/gorras/B1D.webp','assets/images/gorras/B3IZ.webp','assets/images/gorras/B2L.webp'] },
       { id: 'B2', nombre: 'BARBAS PREMIUM 2.0 — DARK NEBULA', precio: '₡25.000', foto: 'assets/images/gorras/B2FPPPP.webp', fotos: ['assets/images/gorras/B2FPPPP.webp','assets/images/gorras/B2LI.webp','assets/images/gorras/B2LD.webp'] },
       { id: 'B3', nombre: 'BARBAS HATS - HEARTBREAK WILITO', precio: '₡25.000', foto: 'assets/images/gorras/B3FFF.webp', fotos: ['assets/images/gorras/B3FFF.webp','assets/images/gorras/B3L.webp','assets/images/gorras/B3A.webp'] },
       { id: 'B4', nombre: 'EL BARBAS HATS X CT - ROCKSTAR I CT', precio: '₡25.000', foto: 'assets/images/gorras/B4F.webp', fotos: ['assets/images/gorras/B4F.webp','assets/images/gorras/B4L.webp','assets/images/gorras/B4LD.webp'] },
-      { id: 'B5', nombre: 'BARBAS HATS GORRA - CHROME III EDICIÓN', precio: '₡25.000', foto: 'assets/images/gorras/B5F.webp', fotos: ['assets/images/gorras/B5F.webp','assets/images/gorras/B5L.webp','assets/images/gorras/B5LI.webp'] },
+      { id: 'B5', nombre: 'BARBAS HATS GORRA - CHROME III EDICIÓN', agotado: true, precio: '₡25.000', foto: 'assets/images/gorras/B5F.webp', fotos: ['assets/images/gorras/B5F.webp','assets/images/gorras/B5L.webp','assets/images/gorras/B5LI.webp'] },
       { id: 'B6', nombre: 'BARBAS HATS - THE BLACK 77', precio: '₡25.000', foto: 'assets/images/gorras/B6F.webp', fotos: ['assets/images/gorras/B6F.webp','assets/images/gorras/B6L.webp','assets/images/gorras/B6A.webp'] },
     ]
   },
@@ -28,16 +28,16 @@ const marcas = {
       { id: '31-3', nombre: '31 HATS X EL MAGO — M ROJA', precio: '₡25.000', foto: 'assets/images/gorras/M3F.webp', fotos: ['assets/images/gorras/M3LI.webp','assets/images/gorras/M3L.webp','assets/images/gorras/M3A.webp'] },
       { id: '31-4', nombre: 'GORRA 31 HATS - TOTAL BLACK NY FLAMES', precio: '₡25.000', foto: 'assets/images/gorras/M4F.webp', fotos: ['assets/images/gorras/M4F.webp','assets/images/gorras/M4L.webp','assets/images/gorras/M4A.webp'] },
       { id: '31-5', nombre: 'GORRA 31 HATS - EL MAGO FOREVER WINGS', precio: '₡25.000', foto: 'assets/images/gorras/M5F.webp', fotos: ['assets/images/gorras/M5L.webp','assets/images/gorras/M5LI.webp','assets/images/gorras/M5A.webp'] },
-      { id: '31-6', nombre: 'GORRA 31 HATS - PINK RECON', precio: '₡25.000', foto: 'assets/images/gorras/M6F.webp', fotos: ['assets/images/gorras/M6L.webp','assets/images/gorras/M6LI.webp','assets/images/gorras/M6A.webp'] },
+      { id: '31-6', nombre: 'GORRA 31 HATS - PINK RECON', agotado: true, precio: '₡25.000', foto: 'assets/images/gorras/M6F.webp', fotos: ['assets/images/gorras/M6L.webp','assets/images/gorras/M6LI.webp','assets/images/gorras/M6A.webp'] },
     ]
   },
   'Otras Marcas': {
     modelos: [
       { id: 'O1', nombre: 'GORRA BAEZ X SHIFU', precio: '₡25.000', foto: 'assets/images/gorras/O1F.webp', fotos: ['assets/images/gorras/O1L.webp','assets/images/gorras/O1LI.webp','assets/images/gorras/O1AB.webp'] },
       { id: 'O2', nombre: 'GORRA BIGG BOSS - ESTRELLAS ROCKSTAR', precio: '₡25.000', foto: 'assets/images/gorras/O2F.webp', fotos: ['assets/images/gorras/O2L.webp','assets/images/gorras/O2LI.webp','assets/images/gorras/O2A.webp'] },
-      { id: 'O3', nombre: 'GORRA RUDE AWAKENINGS - CROWN OF THORNS PINK', precio: '₡25.000', foto: 'assets/images/gorras/O3F.webp', fotos: ['assets/images/gorras/O3F.webp','assets/images/gorras/O3L.webp','assets/images/gorras/O3LI.webp'] },
+      { id: 'O3', nombre: 'GORRA RUDE AWAKENINGS - CROWN OF THORNS PINK', agotado: true, precio: '₡25.000', foto: 'assets/images/gorras/O3F.webp', fotos: ['assets/images/gorras/O3F.webp','assets/images/gorras/O3L.webp','assets/images/gorras/O3LI.webp'] },
       { id: 'O4', nombre: 'GORRA RUDE AWAKENINGS - NY BRIDE', precio: '₡25.000', foto: 'assets/images/gorras/O4F.webp', fotos: ['assets/images/gorras/O4L.webp','assets/images/gorras/O4LI.webp','assets/images/gorras/O4A.webp'] },
-      { id: 'O5', nombre: 'GORRA RUDE AWAKENINGS - LALALA ROSA', precio: '₡25.000', foto: 'assets/images/gorras/O5F.webp', fotos: ['assets/images/gorras/O5F.webp','assets/images/gorras/O5L.webp','assets/images/gorras/O5A.webp'] },
+      { id: 'O5', nombre: 'GORRA RUDE AWAKENINGS - LALALA ROSA', agotado: true, precio: '₡25.000', foto: 'assets/images/gorras/O5F.webp', fotos: ['assets/images/gorras/O5F.webp','assets/images/gorras/O5L.webp','assets/images/gorras/O5A.webp'] },
       { id: 'O6', nombre: 'GORRA RICO HATS - "LA" VANCLEEF', precio: '₡25.000', foto: 'assets/images/gorras/O6F.webp', fotos: ['assets/images/gorras/O6F.webp','assets/images/gorras/O6L.webp','assets/images/gorras/O6LI.webp'] },
       { id: 'O7', nombre: 'RICO HATS - TOTAL BLACK "LA" MAGO', precio: '₡25.000', foto: 'assets/images/gorras/07F.webp', fotos: ['assets/images/gorras/07F.webp','assets/images/gorras/07L.webp','assets/images/gorras/07LD.webp'] },
       { id: 'O8', nombre: 'GORRA BIGG BOSS SAN JUDAS - CRYSTAL TOTAL BlACK', precio: '₡25.000', foto: 'assets/images/gorras/08F.webp', fotos: ['assets/images/gorras/08FF.webp','assets/images/gorras/08LD.webp','assets/images/gorras/08LI.webp'] },
@@ -192,6 +192,7 @@ function renderModelos(marcaId, panel) {
         <div class="modelo__card" onclick="abrirDetalle('${marcaId}', '${m.id}')">
           <div class="modelo__img-wrap">
             <img src="${m.foto}" alt="${m.nombre}" />
+            ${m.agotado ? '<img src="assets/images/gorras/agotado.png" class="modelo__agotado" />' : ''}
           </div>
           <p class="modelo__nombre">${m.nombre}</p>
           <p class="modelo__precio">${m.precio}</p>
