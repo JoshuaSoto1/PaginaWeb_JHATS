@@ -583,13 +583,31 @@ function initMusica() {
   const audio = new Audio('assets/audio/beat.mpeg');
   audio.loop = true;
   audio.volume = 0.1;
+  let iniciando = false;
+  let iniciada = false;
 
-  const iniciarMusica = () => {
-    audio.play().catch(() => {});
-    document.removeEventListener('touchstart', iniciarMusica);
-    document.removeEventListener('click', iniciarMusica);
+  const iniciarMusica = async () => {
+    if (iniciando || iniciada) return;
+    iniciando = true;
+
+    try {
+      await audio.play();
+      iniciada = true;
+      document.removeEventListener('touchstart', iniciarMusica);
+      document.removeEventListener('click', iniciarMusica);
+      document.removeEventListener('keydown', iniciarMusica);
+    } catch (error) {
+      console.error('No se pudo iniciar la música de fondo.', error);
+    } finally {
+      iniciando = false;
+    }
   };
 
-  document.addEventListener('touchstart', iniciarMusica);
+  audio.addEventListener('error', () => {
+    console.error('No se pudo cargar assets/audio/beat.mpeg.', audio.error);
+  });
+
+  document.addEventListener('keydown', iniciarMusica);
+  document.addEventListener('touchstart', iniciarMusica, { passive: true });
   document.addEventListener('click', iniciarMusica);
 }
