@@ -86,62 +86,135 @@
                 No son simples gorras, son personalidad.
             </p>
 
-            <a href="#catalogo" class="btn-primary">
+            <button type="button" class="btn-primary" id="open-drop-video" aria-haspopup="dialog" aria-controls="drop-video-intro">
                 Ver DROP
-            </a>
+            </button>
         </div>
 
     </section>
 
-    <!-- ======= CATEGORÍAS ======= -->
-    <section class="catalogo" id="catalogo">
-        <div class="catalogo__header" data-reveal>
-            <h2 class="catalogo__title">Marcas Disponibles</h2>
-            <p class="catalogo__sub">Elegí tu estilo y explora algo nuevo</p>
+    <!-- ======= VIDEO DE BIENVENIDA DEL DROP ======= -->
+    <div class="drop-intro" id="drop-video-intro" hidden>
+        <section class="drop-intro__dialog" role="dialog" aria-modal="true" aria-label="Video de presentación del drop" tabindex="-1">
+            <video class="drop-intro__video" playsinline preload="auto" aria-label="Video de presentación del drop">
+                <source src="assets/videos/videoDROP.mp4" type="video/mp4" />
+            </video>
+            <input class="video-timeline drop-intro__timeline" type="range" min="0" max="1000" value="0" step="1" aria-label="Avance del video de presentación" />
+            <p class="drop-intro__status" role="status" aria-live="polite"></p>
+        </section>
+    </div>
+
+    <!-- ======= VIDEOS DEL DROP ======= -->
+    <section class="drop" id="catalogo" aria-labelledby="drop-title">
+        <div class="drop__header" data-reveal>
+            <span class="drop__eyebrow">JHATS CR</span>
+            <h2 class="drop__title" id="drop-title" tabindex="-1">5to DROP</h2>
+            <p class="drop__subtitle"></p>
         </div>
 
-        <div class="categorias__grid" data-reveal>
+        <p class="drop__video-help"></p>
+        <div class="drop__carousel" data-reveal role="region" aria-roledescription="carrusel" aria-label="Videos del drop">
+            <button class="drop__arrow drop__arrow--prev" type="button" aria-label="Video anterior">
+                <span aria-hidden="true">‹</span>
+            </button>
 
-            <div class="categoria__card tilt-card" onclick="toggleCategoria('Barbas')">
-                <div class="categoria__img-wrap">
-                    <img src="assets/images/gorras/Barbas.png" class="logo-barbas" />
+            <div class="drop__viewport">
+                <div class="drop__track">
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/1.mov" playsinline muted loop preload="none" aria-label="Video DROP 01"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/2.mov" playsinline muted loop preload="none" aria-label="Video DROP 02"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/3.mov" playsinline muted loop preload="none" aria-label="Video DROP 03"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/4.mov" playsinline muted loop preload="none" aria-label="Video DROP 04"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/5.mov" playsinline muted loop preload="none" aria-label="Video DROP 05"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/6.mov" playsinline muted loop preload="none" aria-label="Video DROP 06"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/7.mov" playsinline muted loop preload="none" aria-label="Video DROP 07"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/8.mov" playsinline muted loop preload="none" aria-label="Video DROP 08"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/9.mov" playsinline muted loop preload="none" aria-label="Video DROP 09"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/10.mov" playsinline muted loop preload="none" aria-label="Video DROP 10"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/11.mov" playsinline muted loop preload="none" aria-label="Video DROP 11"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
+                    <article class="drop-card" aria-roledescription="diapositiva">
+                        <div class="drop-card__media">
+                            <video class="drop-card__video" data-video-src="assets/videos/12.mov" playsinline muted loop preload="none" aria-label="Video DROP 12"></video>
+                            <div class="drop-card__placeholder"><span class="drop-card__play" aria-hidden="true"></span><span class="drop-card__hint">Reemplazá el link del video en el HTML</span></div>
+                        </div>
+                        <h3 class="drop-card__caption"></h3>
+                    </article>
                 </div>
-                <h3>Barbas Hats</h3>
-                <span class="categoria__arrow">↓</span>
             </div>
 
-            <div class="categoria__card tilt-card" onclick="toggleCategoria('Dandy')">
-                <div class="categoria__img-wrap">
-                    <img src="assets/images/gorras/Dandy.png" class="logo-dandy" />
-                </div>
-                <h3>Dandy Hats</h3>
-                <span class="categoria__arrow">↓</span>
-            </div>
-
-            <div class="categoria__card tilt-card" onclick="toggleCategoria('31 Hats')">
-                <div class="categoria__img-wrap">
-                    <img src="assets/images/gorras/Dandyy.png" class="logo-31hats" />
-                </div>
-                <h3>31 Hats</h3>
-                <span class="categoria__arrow">↓</span>
-            </div>
-
-            <div class="categoria__card tilt-card" onclick="toggleCategoria('Otras Marcas')">
-                <div class="categoria__img-wrap">
-                    <img src="assets/images/gorras/OTRAS.png" class="logo-otras" />
-                </div>
-                <h3>Otras Marcas</h3>
-                <span class="categoria__arrow">↓</span>
-            </div>
-
+            <button class="drop__arrow drop__arrow--next" type="button" aria-label="Siguiente video">
+                <span aria-hidden="true">›</span>
+            </button>
         </div>
-
-        <!-- Paneles — el JS los llena al hacer clic -->
-        <div class="productos__panel" id="panel-Barbas"></div>
-        <div class="productos__panel" id="panel-Dandy"></div>
-        <div class="productos__panel" id="panel-31 Hats"></div>
-        <div class="productos__panel" id="panel-Otras Marcas"></div>
-
+        <div class="drop__navigation">
+            <div class="drop__dots" aria-label="Elegir video"></div>
+            <p class="drop__counter" aria-live="polite"></p>
+        </div>
     </section>
 
     <!-- ======= CONTACTO ======= -->

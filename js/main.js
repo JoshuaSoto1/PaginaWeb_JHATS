@@ -68,9 +68,285 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initHeroParallax();
   initTiltCards();
+  const prepareDropCarousel = initDropCarousel();
+  initDropVideoIntro(prepareDropCarousel);
   fixIOSVideo();
    initMusica();
 });
+
+// ============================================================
+// VIDEO DESTACADO — al terminar, lleva al carrusel de videos
+// ============================================================
+function initVideoTimeline(video, timeline) {
+  const updateTimeline = () => {
+    if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+
+    const duration = Math.round(video.duration * 10);
+    const currentTime = Math.round(video.currentTime * 10);
+    timeline.max = String(duration);
+    timeline.value = String(currentTime);
+    timeline.style.setProperty('--progress', `${(currentTime / duration) * 100}%`);
+    timeline.setAttribute('aria-valuetext', `${formatVideoTime(video.currentTime)} de ${formatVideoTime(video.duration)}`);
+  };
+
+  timeline.addEventListener('input', () => {
+    if (Number.isFinite(video.duration)) {
+      video.currentTime = Number(timeline.value) / 10;
+    }
+  });
+  video.addEventListener('durationchange', updateTimeline);
+  video.addEventListener('timeupdate', updateTimeline);
+  video.addEventListener('loadedmetadata', updateTimeline);
+}
+
+function formatVideoTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+}
+
+function initDropVideoIntro(prepareCarousel) {
+  const trigger = document.getElementById('open-drop-video');
+  const overlay = document.getElementById('drop-video-intro');
+  const video = overlay?.querySelector('.drop-intro__video');
+  const dialog = overlay?.querySelector('.drop-intro__dialog');
+  const status = overlay?.querySelector('.drop-intro__status');
+  const timeline = overlay?.querySelector('.drop-intro__timeline');
+  const backgroundVideo = document.querySelector('.hero__video');
+  const dropSection = document.getElementById('catalogo');
+  const dropTitle = document.getElementById('drop-title');
+
+  if (!trigger || !overlay || !video || !dialog || !status || !timeline || !dropSection) return;
+
+  let previousFocus = null;
+  video.preload = 'auto';
+  initVideoTimeline(video, timeline);
+  video.load();
+
+  function closeIntro({ goToCards = false } = {}) {
+    if (goToCards) {
+      dropSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      overlay.classList.remove('is-visible');
+    }
+
+    const finishClosing = () => {
+      overlay.hidden = true;
+      overlay.classList.remove('is-visible', 'has-error');
+      document.body.classList.remove('drop-intro-open');
+      video.pause();
+      if (video.readyState > 0) video.currentTime = 0;
+      status.textContent = '';
+      if (backgroundVideo) backgroundVideo.play().catch(() => {});
+
+      if (goToCards) {
+        dropTitle?.focus({ preventScroll: true });
+      } else {
+        previousFocus?.focus();
+      }
+    };
+
+    if (goToCards) {
+      window.setTimeout(finishClosing, 560);
+    } else {
+      overlay.classList.remove('is-visible');
+      finishClosing();
+    }
+  }
+
+  trigger.addEventListener('click', () => {
+    previousFocus = document.activeElement;
+    overlay.hidden = false;
+    overlay.classList.remove('has-error');
+    document.body.classList.add('drop-intro-open');
+    status.textContent = '';
+    backgroundVideo?.pause();
+    prepareCarousel();
+    dialog.focus();
+
+    window.requestAnimationFrame(() => overlay.classList.add('is-visible'));
+    video.play().catch(error => {
+      console.error('No se pudo reproducir el video de presentación del drop.', error);
+      overlay.classList.add('has-error');
+      status.textContent = 'No se pudo reproducir el video. Verificá la ruta del archivo.';
+    });
+  });
+
+  video.addEventListener('ended', () => closeIntro({ goToCards: true }));
+  video.addEventListener('error', () => {
+    console.error('No se pudo cargar assets/videos/videoDROP.mp4.');
+    overlay.classList.add('has-error');
+    status.textContent = 'No se pudo cargar el video. Verificá la ruta assets/videos/VideoPerro.mp4.';
+  });
+  video.addEventListener('playing', () => {
+    overlay.classList.remove('has-error');
+    status.textContent = '';
+  });
+  overlay.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeIntro();
+  });
+}
+
+// ============================================================
+// CARRUSEL DROP — carga el video activo y precarga solo sus vecinos
+// ============================================================
+function initDropCarousel() {
+  const carousel = document.querySelector('.drop__carousel');
+  if (!carousel) return () => {};
+
+  const track = carousel.querySelector('.drop__track');
+  const viewport = carousel.querySelector('.drop__viewport');
+  const cards = Array.from(track.querySelectorAll('.drop-card'));
+  const videos = cards.map(card => card.querySelector('.drop-card__video'));
+  const dotsContainer = document.querySelector('.drop__dots');
+  const counter = document.querySelector('.drop__counter');
+  const previousButton = carousel.querySelector('.drop__arrow--prev');
+  const nextButton = carousel.querySelector('.drop__arrow--next');
+  let activeIndex = 0;
+  let swipeStartX = null;
+  let carouselVisible = false;
+
+  if (cards.length === 0) return () => {};
+
+  cards.forEach((card, index) => {
+    const video = videos[index];
+    video.removeAttribute('controls');
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    initVideoTimeline(video, createDropTimeline(video, index));
+    createDropWhatsAppLink(card, index);
+
+    video.addEventListener('loadeddata', () => {
+      card.classList.add('drop-card--ready');
+      if (carouselVisible && index === activeIndex) playDropVideo(video);
+    });
+    video.addEventListener('error', () => {
+      card.classList.remove('drop-card--ready');
+      card.querySelector('.drop-card__hint').textContent =
+        'Este video no se reproduce aquí. Para móviles, usá MP4 (H.264).';
+    });
+
+    const dot = document.createElement('button');
+    dot.className = 'drop__dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Ir al video ${index + 1}`);
+    dot.addEventListener('click', () => showSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsContainer.querySelectorAll('.drop__dot'));
+
+  function loadVideo(index, preload) {
+    const video = videos[index];
+    const source = video.dataset.videoSrc;
+    if (!source) return;
+
+    video.preload = preload;
+    if (!video.hasAttribute('src')) {
+      video.src = source;
+      video.load();
+    }
+  }
+
+  function playDropVideo(video) {
+    video.muted = true;
+    video.play().catch(error => {
+      console.error(`No se pudo reproducir el video ${video.dataset.videoSrc}.`, error);
+    });
+  }
+
+  function prepareNearbyVideos(index, preloadActive = false) {
+    const nextIndex = (index + 1) % cards.length;
+    videos.forEach((video, videoIndex) => {
+      if (videoIndex !== index && videoIndex !== nextIndex && video.hasAttribute('src')) {
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+        cards[videoIndex].classList.remove('drop-card--ready');
+      }
+    });
+
+    loadVideo(index, preloadActive ? 'auto' : 'metadata');
+    if (nextIndex !== index) loadVideo(nextIndex, 'metadata');
+  }
+
+  function showSlide(index, preloadActive = true) {
+    activeIndex = (index + cards.length) % cards.length;
+    track.style.transform = `translateX(-${activeIndex * 100}%)`;
+
+    cards.forEach((card, cardIndex) => {
+      const isActive = cardIndex === activeIndex;
+      card.setAttribute('aria-hidden', String(!isActive));
+      card.inert = !isActive;
+      if (!isActive) videos[cardIndex].pause();
+    });
+
+    prepareNearbyVideos(activeIndex, preloadActive);
+    if (carouselVisible && videos[activeIndex].readyState >= 2) playDropVideo(videos[activeIndex]);
+
+    dots.forEach((dot, dotIndex) => {
+      dot.setAttribute('aria-current', String(dotIndex === activeIndex));
+    });
+    counter.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+  }
+
+  previousButton.addEventListener('click', () => showSlide(activeIndex - 1));
+  nextButton.addEventListener('click', () => showSlide(activeIndex + 1));
+
+  viewport.addEventListener('pointerdown', event => {
+    swipeStartX = event.clientX;
+  });
+  viewport.addEventListener('pointerup', event => {
+    if (swipeStartX === null) return;
+    const swipeDistance = event.clientX - swipeStartX;
+    swipeStartX = null;
+    if (Math.abs(swipeDistance) > 60) {
+      showSlide(activeIndex + (swipeDistance < 0 ? 1 : -1));
+    }
+  });
+  viewport.addEventListener('pointercancel', () => {
+    swipeStartX = null;
+  });
+
+  const visibilityObserver = new IntersectionObserver(([entry]) => {
+    carouselVisible = entry.isIntersecting;
+    if (carouselVisible) {
+      prepareNearbyVideos(activeIndex, true);
+      if (videos[activeIndex].readyState >= 2) playDropVideo(videos[activeIndex]);
+    } else {
+      videos[activeIndex].pause();
+    }
+  }, { threshold: 0.35 });
+  visibilityObserver.observe(viewport);
+
+  showSlide(0, false);
+  return () => prepareNearbyVideos(activeIndex, true);
+}
+
+function createDropTimeline(video, index) {
+  const timeline = document.createElement('input');
+  timeline.className = 'video-timeline drop-card__timeline';
+  timeline.type = 'range';
+  timeline.min = '0';
+  timeline.max = '1000';
+  timeline.value = '0';
+  timeline.step = '1';
+  timeline.setAttribute('aria-label', `Avance del video DROP ${String(index + 1).padStart(2, '0')}`);
+  video.parentElement.appendChild(timeline);
+  return timeline;
+}
+
+function createDropWhatsAppLink(card, index) {
+  const productName = document.getElementById('drop-title')?.textContent.trim() || 'DROP';
+  const message = encodeURIComponent(`Hola, quiero pedir información del ${productName}, video ${String(index + 1).padStart(2, '0')}.`);
+  const link = document.createElement('a');
+  link.className = 'btn-whatsapp drop-card__whatsapp';
+  link.href = `https://wa.me/${WHATSAPP}?text=${message}`;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.textContent = 'Pedir por WhatsApp';
+  card.appendChild(link);
+}
 
 // ============================================================
 // NAVBAR — shrink on scroll
@@ -283,20 +559,20 @@ function fixIOSVideo() {
 
   // Reanudar si se congela al volver a la página
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
+    if (document.visibilityState === 'visible' && !document.body.classList.contains('drop-intro-open')) {
       video.play().catch(() => {});
     }
   });
 
   // Reanudar si la app vuelve al foco
   window.addEventListener('pageshow', () => {
-    video.play().catch(() => {});
+    if (!document.body.classList.contains('drop-intro-open')) video.play().catch(() => {});
   });
 
   // Reanudar si se pausa solo
   video.addEventListener('pause', () => {
     setTimeout(() => {
-      video.play().catch(() => {});
+      if (!document.body.classList.contains('drop-intro-open')) video.play().catch(() => {});
     }, 300);
   });
 }
@@ -304,7 +580,7 @@ function fixIOSVideo() {
 // MÚSICA DE FONDO
 // ============================================================
 function initMusica() {
-  const audio = new Audio('assets/audio/cancion.mp3');
+  const audio = new Audio('assets/audio/beat.mpeg');
   audio.loop = true;
   audio.volume = 0.1;
 
