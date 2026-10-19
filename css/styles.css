@@ -1230,6 +1230,10 @@ body {
   display: none;
 }
 
+.drop-card--has-poster:not(.drop-card--load-error) .drop-card__placeholder {
+  display: none;
+}
+
 .drop-card__play {
   position: relative;
   width: 58px;

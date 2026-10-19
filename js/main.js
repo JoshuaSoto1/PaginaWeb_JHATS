@@ -119,9 +119,8 @@ function initDropVideoIntro(prepareCarousel) {
   if (!trigger || !overlay || !video || !dialog || !status || !timeline || !dropSection) return;
 
   let previousFocus = null;
-  video.preload = 'auto';
+  video.preload = 'none';
   initVideoTimeline(video, timeline);
-  video.load();
 
   function closeIntro({ goToCards = false } = {}) {
     if (goToCards) {
@@ -160,7 +159,8 @@ function initDropVideoIntro(prepareCarousel) {
     document.body.classList.add('drop-intro-open');
     status.textContent = '';
     backgroundVideo?.pause();
-    prepareCarousel();
+    video.preload = 'auto';
+    if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
     dialog.focus();
 
     window.requestAnimationFrame(() => overlay.classList.add('is-visible'));
@@ -171,11 +171,14 @@ function initDropVideoIntro(prepareCarousel) {
     });
   });
 
-  video.addEventListener('ended', () => closeIntro({ goToCards: true }));
+  video.addEventListener('ended', () => {
+    prepareCarousel(true, false);
+    closeIntro({ goToCards: true });
+  });
   video.addEventListener('error', () => {
-    console.error('No se pudo cargar assets/videos/videoDROP.mp4.');
+    console.error('No se pudo cargar assets/videos/Videodrop.mp4.');
     overlay.classList.add('has-error');
-    status.textContent = 'No se pudo cargar el video. Verificá la ruta assets/videos/VideoPerro.mp4.';
+    status.textContent = 'No se pudo cargar el video de presentación.';
   });
   video.addEventListener('playing', () => {
     overlay.classList.remove('has-error');
@@ -204,7 +207,6 @@ function initDropCarousel() {
   let activeIndex = 0;
   let swipeStartX = null;
   let carouselVisible = false;
-
   if (cards.length === 0) return () => {};
 
   cards.forEach((card, index) => {
@@ -213,19 +215,21 @@ function initDropCarousel() {
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
+    if (video.poster) card.classList.add('drop-card--has-poster');
     initVideoTimeline(video, createDropTimeline(video, index));
     createDropWhatsAppLink(card, index);
 
     video.addEventListener('loadeddata', () => {
       card.classList.add('drop-card--ready');
+      card.classList.remove('drop-card--load-error');
       if (carouselVisible && index === activeIndex) playDropVideo(video);
     });
     video.addEventListener('error', () => {
       card.classList.remove('drop-card--ready');
+      card.classList.add('drop-card--load-error');
       card.querySelector('.drop-card__hint').textContent =
-        'Este video no se reproduce aquí. Para móviles, usá MP4 (H.264).';
+        'No se pudo cargar el video. Revisá la conexión e intentá de nuevo.';
     });
-
     const dot = document.createElement('button');
     dot.className = 'drop__dot';
     dot.type = 'button';
@@ -241,10 +245,14 @@ function initDropCarousel() {
     const source = video.dataset.videoSrc;
     if (!source) return;
 
-    video.preload = preload;
     if (!video.hasAttribute('src')) {
       video.src = source;
+      video.preload = preload;
       video.load();
+    } else {
+      const shouldPromoteToAuto = preload === 'auto' && video.preload !== 'auto' && video.readyState < 2;
+      video.preload = preload;
+      if (shouldPromoteToAuto) video.load();
     }
   }
 
@@ -255,19 +263,14 @@ function initDropCarousel() {
     });
   }
 
-  function prepareNearbyVideos(index, preloadActive = false) {
+  function prepareNearbyVideos(index, preloadActive = false, preloadNext = false) {
     const nextIndex = (index + 1) % cards.length;
     videos.forEach((video, videoIndex) => {
-      if (videoIndex !== index && videoIndex !== nextIndex && video.hasAttribute('src')) {
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
-        cards[videoIndex].classList.remove('drop-card--ready');
-      }
+      if (videoIndex !== index && videoIndex !== nextIndex) video.preload = 'none';
     });
 
     loadVideo(index, preloadActive ? 'auto' : 'metadata');
-    if (nextIndex !== index) loadVideo(nextIndex, 'metadata');
+    if (nextIndex !== index) loadVideo(nextIndex, preloadNext ? 'auto' : 'metadata');
   }
 
   function showSlide(index, preloadActive = true) {
@@ -281,7 +284,7 @@ function initDropCarousel() {
       if (!isActive) videos[cardIndex].pause();
     });
 
-    prepareNearbyVideos(activeIndex, preloadActive);
+    prepareNearbyVideos(activeIndex, preloadActive, false);
     if (carouselVisible && videos[activeIndex].readyState >= 2) playDropVideo(videos[activeIndex]);
 
     dots.forEach((dot, dotIndex) => {
@@ -289,6 +292,15 @@ function initDropCarousel() {
     });
     counter.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
   }
+
+  videos.forEach((video, index) => {
+    video.addEventListener('timeupdate', () => {
+      const isNearEnd = Number.isFinite(video.duration) && video.duration - video.currentTime <= 5;
+      if (carouselVisible && index === activeIndex && isNearEnd) {
+        loadVideo((index + 1) % cards.length, 'auto');
+      }
+    });
+  });
 
   previousButton.addEventListener('click', () => showSlide(activeIndex - 1));
   nextButton.addEventListener('click', () => showSlide(activeIndex + 1));
@@ -311,7 +323,7 @@ function initDropCarousel() {
   const visibilityObserver = new IntersectionObserver(([entry]) => {
     carouselVisible = entry.isIntersecting;
     if (carouselVisible) {
-      prepareNearbyVideos(activeIndex, true);
+      prepareNearbyVideos(activeIndex, true, false);
       if (videos[activeIndex].readyState >= 2) playDropVideo(videos[activeIndex]);
     } else {
       videos[activeIndex].pause();
@@ -319,8 +331,15 @@ function initDropCarousel() {
   }, { threshold: 0.35 });
   visibilityObserver.observe(viewport);
 
-  showSlide(0, false);
-  return () => prepareNearbyVideos(activeIndex, true);
+  track.style.transform = 'translateX(0)';
+  cards.forEach((card, index) => {
+    card.setAttribute('aria-hidden', String(index !== 0));
+    card.inert = index !== 0;
+  });
+  dots.forEach((dot, index) => dot.setAttribute('aria-current', String(index === 0)));
+  counter.textContent = `01 / ${String(cards.length).padStart(2, '0')}`;
+  return (preloadActive = false, preloadNext = false) =>
+    prepareNearbyVideos(activeIndex, preloadActive, preloadNext);
 }
 
 function createDropTimeline(video, index) {
